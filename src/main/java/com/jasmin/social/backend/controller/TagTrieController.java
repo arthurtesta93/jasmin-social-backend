@@ -11,10 +11,9 @@ public class TagTrieController {
     private TagTrieService tagTrieService;
 
     // REST endpoints to interact with the TRIE structure
-
-    @PostMapping("/tag/insert")
-    public void insertTag(String tag) {
-        tagTrieService.insert(tag);
-    }
+        @PostMapping("/tag")
+        public void insertTag(String tag) {
+            tagTrieService.insert(tag);
+        }
 
 }

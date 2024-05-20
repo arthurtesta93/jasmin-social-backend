@@ -26,11 +26,10 @@ public class TagTrieService {
         }
         TagTrieNodeEntity current = root;
         for (int i = 0; i < tag.length(); i++) {
-            char c = tag.charAt(i);
-            TagTrieNodeEntity node = trieNodeRepository.findByCharacterAndParentId(c, current.getId());
+            TagTrieNodeEntity node = trieNodeRepository.findByTagWordAndParent(tag, current);
             if (node == null) {
                 node = new TagTrieNodeEntity();
-                node.setCharacter(c);
+                node.setTagWord(tag);
                 node.setParent(current);
                 trieNodeRepository.save(node);
             }
