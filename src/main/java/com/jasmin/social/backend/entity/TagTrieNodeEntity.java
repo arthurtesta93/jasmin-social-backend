@@ -1,21 +1,12 @@
 package com.jasmin.social.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
-//getter, setter, constructor annotations
 
-@Table(name = "trie_node")
-@Getter
-@Setter
 @Entity
 public class TagTrieNodeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private char character;
     private boolean isEndOfTag;
@@ -27,5 +18,48 @@ public class TagTrieNodeEntity {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<TagTrieNodeEntity> children;
 
+    @Id
+    private Long id;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    // Constructors, getters, setters
+
+    public void setCharacter(char character) {
+        this.character = character;
+    }
+
+    public char getCharacter() {
+        return character;
+    }
+
+    public void setEndOfTag(boolean endOfTag) {
+        isEndOfTag = endOfTag;
+    }
+
+    public boolean isEndOfTag() {
+        return isEndOfTag;
+    }
+
+    public void setParent(TagTrieNodeEntity parent) {
+        this.parent = parent;
+    }
+
+    public TagTrieNodeEntity getParent() {
+        return parent;
+    }
+
+    public void setChildren(List<TagTrieNodeEntity> children) {
+        this.children = children;
+    }
+
+    public List<TagTrieNodeEntity> getChildren() {
+        return children;
+    }
 
 }
