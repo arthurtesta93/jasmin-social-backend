@@ -14,6 +14,7 @@ public class TagTrieNodeEntity {
 
     @Column(name = "tag_id")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagId;
 
     @Column(name = "tag_word")
