@@ -48,8 +48,23 @@ public class TagTrieService {
     }
 
     public boolean search(String tag) {
-        return false;
+        TagTrieNodeEntity current = root;
+        for (int i = 0; i < tag.length(); i++) {
+            String tagPart = tag.substring(0, i + 1); // Get the current part of the tag
+            TagTrieNodeEntity node = trieNodeRepository.findByTagWordAndParent(tagPart, current);
+
+            if (node == null) {
+                return false;
+            }
+
+            current = node;
+        }
+
+
+        return current.isEndOfTag();
     }
+
+
 
 
 }
