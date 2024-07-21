@@ -1,30 +1,43 @@
 package com.jasmin.social.backend.controller;
 
+import com.jasmin.social.backend.dto.TagSearchWithContextDTO;
 import com.jasmin.social.backend.service.TagTrieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TagTrieController {
     @Autowired
     private TagTrieService tagTrieService;
 
-    // REST endpoints to interact with the TRIE structure
-        @PostMapping("/tag")
-        public void insertTag(@RequestBody String tag) {
-            tagTrieService.insert(tag);
+    @PostMapping("/tag")
+    public ResponseEntity<String> insertTag(@RequestBody String tag) {
+        try {
+            return tagTrieService.insert(tag);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
+    }
 
-        // Search for a single tag in the TRIE structure
+    @GetMapping("/tag")
+    public boolean searchTag(@RequestBody String tag) {
+        return tagTrieService.search(tag);
+    }
 
-        @GetMapping("/tag")
-        public boolean searchTag(@RequestBody String tag) {
-            return tagTrieService.search(tag);
+    @GetMapping("/tag/{tag}/context")
+    public ResponseEntity<TagSearchWithContextDTO> searchTagWithContext(@PathVariable String tag) {
+        try {
+            return tagTrieService.searchWithContext(tag);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
+    }
 
+    @DeleteMapping("/tag")
+    public void deleteTag(@RequestBody String tag) {
+        tagTrieService.delete(tag);
+    }
 
 }
 
