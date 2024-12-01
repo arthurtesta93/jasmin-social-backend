@@ -71,7 +71,6 @@ public class TagTrieService {
         String[] foundTags = new String[tagParts.length];
         int contextLevel = 0;
 
-        TagTrieNodeEntity current = root;
         for (int i = 0; i < tagParts.length; i++) {
             String tagPart = tagParts[i]; // Get the current part of the tag
             //search just the tag word, not the parent
@@ -81,7 +80,6 @@ public class TagTrieService {
                 return ResponseEntity.ok(new TagSearchWithContextDTO(foundTags, contextLevel));
             }
 
-            current = node;
             foundTags[i] = tagPart;
             contextLevel++;
         }
